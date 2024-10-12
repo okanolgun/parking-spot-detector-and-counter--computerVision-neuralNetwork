@@ -1,16 +1,16 @@
-# This is a sample Python script.
+import cv2
 
-# Press Shift+R to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+video_path = './data/parking_crop_loop.mp4'
 
+cap = cv2.VideoCapture(video_path)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+ret = True
+while ret:
+    ret, frame = cap.read()
 
+    cv2.imshow('frame', frame)
+    if cv2.waitKey(25) & 0xFF == ord('q') :
+        break
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+cap.release()
+cv2.destroyAllWindows()
