@@ -1,4 +1,5 @@
 import cv2
+import matplotlib.pyplot as plt
 import numpy as np
 
 from util import get_parking_spots_bboxes, empty_or_not
@@ -15,19 +16,33 @@ connected_components = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
 spots = get_parking_spots_bboxes(connected_components)
 
 def calc_diff(im1, im2):
-    return np.mean(im1) - np.mean(im2)
+    return np.abs(np.mean(im1) - np.mean(im2))
 
-# print(spots[0])
-# empty coordinates for first run
 
 step = 30
 spots_status = [None for j in spots]
-diffs = [Node for j in spots]
+diffs = [None for j in spots]
+
+previous_frame = None
 
 frame_nmr = 0
 ret = True
 while ret:
     ret, frame = cap.read()
+
+    if frame_nmr % step == 0 and previous_frame is not None:
+        for spot_indx, spot in enumerate(spots):
+            x1, y1, w, h = spot
+
+            spot_crop = frame[y1:y1 + h, x1:x1 + w, :]
+
+            diffs[spot_indx] = calc_diff(spot_crop, previous_frame[y1:y1 + h, x1:x1 + w, :])
+
+        print([diffs[j] for j in np.argsort(diffs)][::-1])
+        # plt.figure()
+        # plt.hist([diffs[j] / np.amax() for j in np.argsort(diffs)][::-1])
+        # if frame_nmr == 300:
+        #     plt.show()
 
     if frame_nmr % step == 0:
         for spot_indx, spot in enumerate(spots):
@@ -38,6 +53,9 @@ while ret:
             spot_status = empty_or_not(spot_crop)
 
             spots_status[spot_indx] = spot_status
+
+    if frame_nmr % step ==0:
+        previous_frame = frame.copy()
 
     for spot_indx, spot in enumerate(spots):
         spot_status = spots_status[spot_indx]
