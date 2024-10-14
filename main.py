@@ -18,18 +18,22 @@ spots = get_parking_spots_bboxes(connected_components)
 step = 30
 spots_status = [None for j in spots]
 
-
+frame_nmr = 0
 ret = True
 while ret:
     ret, frame = cap.read()
 
-    for spot in spots:
-        x1, y1, w, h = spot
+    if frame_nmr % step == 0:
+        for spot_indx, spot in enumerate(spots):
+            x1, y1, w, h = spot
 
-        spot_crop = frame[y1:y1+h, x1:x1+w, :]
+            spot_crop = frame[y1:y1+h, x1:x1+w, :]
 
-        spot_status = empty_or_not(spot_crop)
+            spot_status = empty_or_not(spot_crop)
 
+            spots_status[spot_indx] = spot_status
+
+    for spot_indx, spot in enumerate(spots):
         if spot_status:
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 255, 0), 2)
         else:
@@ -38,6 +42,8 @@ while ret:
     cv2.imshow('frame', frame)
     if cv2.waitKey(25) & 0xFF == ord('q'):
         break
+
+    frame_nmr = frame_nmr + 1
 
 cap.release()
 cv2.destroyAllWindows()
