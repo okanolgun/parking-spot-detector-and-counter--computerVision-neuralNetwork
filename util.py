@@ -25,8 +25,16 @@ def empty_or_not(spot_bgr):
         return EMPTY
     else:
         return NOT_EMPTY
+# 1. empty or not (spot_bgr):
+# This function takes an image of a parking area and predicts 
+# whether this area is empty or occupied. 
+# It uses a ready-made model for this prediction.
 
-
+# spot_bgr : image of parking lot
+# img_resized : we make the parking lot smaller. because I want our model to work faster.
+# img_resized_flatten() : we converted the resized image into a single vector. we made it suitable for the input format of the model.
+# if the estimate is 0, the parking lot is empty. if it is 1, the parking lot is full.
+ 
 def get_parking_spots_bboxes(connected_components):
     (totalLabels, label_ids, values, centroid) = connected_components
 
