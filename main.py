@@ -6,6 +6,7 @@ from util import get_parking_spots_bboxes, empty_or_not
 
 mask = './mask_1920_1080.png'
 video_path = './data/parking_1920_1080_loop.mp4'
+# mask.png and video.mp4 is already in our data set and our project directory. 
 
 mask = cv2.imread(mask, 0)
 
