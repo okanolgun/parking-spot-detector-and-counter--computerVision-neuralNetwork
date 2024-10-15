@@ -66,7 +66,7 @@ while ret:
         spot_status = spots_status[spot_indx]
         x1, y1, w, h = spots[spot_indx]
 
-        if spot_status:
+        if spot_status: 
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 255, 0), 2)
         else:
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 0, 255), 2)
