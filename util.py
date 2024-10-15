@@ -25,7 +25,7 @@ def empty_or_not(spot_bgr):
         return EMPTY
     else:
         return NOT_EMPTY
-# 1. empty or not (spot_bgr):
+# empty or not (spot_bgr):
 # This function takes an image of a parking area and predicts 
 # whether this area is empty or occupied. 
 # It uses a ready-made model for this prediction.
@@ -42,7 +42,7 @@ def get_parking_spots_bboxes(connected_components):
     coef = 1
     for i in range(1, totalLabels):
 
-        # Now extract the coordinate points
+        # extract the coordinate points
         x1 = int(values[i, cv2.CC_STAT_LEFT] * coef)
         y1 = int(values[i, cv2.CC_STAT_TOP] * coef)
         w = int(values[i, cv2.CC_STAT_WIDTH] * coef)
@@ -51,4 +51,19 @@ def get_parking_spots_bboxes(connected_components):
         slots.append([x1, y1, w, h])
 
     return slots
+
+# get_parking_spots_bboxes(connected_components):
+# This function retrieves the boundary boxes of 
+# parking spaces from connected components in the image.
+
+# connected_components: Four different sets of information 
+# returned by OpenCV's connectedComponentsWithStats 
+#
+# the loop iterates as many times as totalLabels. 
+# since the first component (index 0) represents the background, the loop starts from 1.
+#
+# we create a list that returns the bounding boxes of parking spaces 
+# (in the format [x1, y1, w, h]). these bounding boxes represent 
+# the location and size of each parking space.
+
 
