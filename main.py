@@ -66,13 +66,16 @@ while ret:
         spot_status = spots_status[spot_indx]
         x1, y1, w, h = spots[spot_indx]
 
-        if spot_status: 
+        if spot_status:
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 255, 0), 2)
         else:
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 0, 255), 2)
 
+    cv2.rectangle(frame, (80,20), (550, 80), (0,0,0), -1)
+
     cv2.putText(frame, 'Avaible spots: {} / {}'.format(str(sum(spots_status)), str(len(spots_status))), (100,60),
                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+
     cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
     cv2.imshow('frame', frame)
     if cv2.waitKey(25) & 0xFF == ord('q'):
