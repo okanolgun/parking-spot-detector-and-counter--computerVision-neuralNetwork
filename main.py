@@ -15,6 +15,10 @@ cap = cv2.VideoCapture(video_path)
 # we captured our videp.mp4 and took it to a frame 
 
 connected_components = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
+# we getting the connected componens with the mask.png 
+# 4 or 8: used for components with 4 or 8 connections. 
+# 4 only considers up, down, left and right neighbors
+# cv_325 is a return type of our data
 
 spots = get_parking_spots_bboxes(connected_components)
 
