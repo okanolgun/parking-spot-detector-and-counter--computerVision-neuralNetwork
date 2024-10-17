@@ -9,9 +9,10 @@ video_path = './data/parking_1920_1080_loop.mp4'
 # mask.png and video.mp4 is already in our data set and our project directory. 
 
 mask = cv2.imread(mask, 0)
-#we read our mask png and turned it to a numpy array
+# we read our mask png and turned it to a numpy array
 
 cap = cv2.VideoCapture(video_path)
+# we captured our videp.mp4 and took it to a frame 
 
 connected_components = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
 
