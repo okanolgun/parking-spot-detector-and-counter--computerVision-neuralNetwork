@@ -21,6 +21,7 @@ connected_components = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
 # cv_325 is a return type of our data
 
 spots = get_parking_spots_bboxes(connected_components)
+# using the method in the util.py class
 
 def calc_diff(im1, im2):
     return np.abs(np.mean(im1) - np.mean(im2))
