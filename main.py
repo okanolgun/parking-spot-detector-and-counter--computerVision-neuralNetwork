@@ -1,7 +1,6 @@
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-
 from util import get_parking_spots_bboxes, empty_or_not
 
 mask = './mask_1920_1080.png'
@@ -42,11 +41,14 @@ while ret: # loop continues as the video is processed frame by frame
     if frame_nmr % step == 0 and previous_frame is not None:
         for spot_indx, spot in enumerate(spots):
             x1, y1, w, h = spot
-
             spot_crop = frame[y1:y1 + h, x1:x1 + w, :]
-
             diffs[spot_indx] = calc_diff(spot_crop, previous_frame[y1:y1 + h, x1:x1 + w, :])
-
+        # In this for loop, we can actually see the relationship between artificial neural networks and mathematics. 
+        # we calculate the coordinate difference for each frame one by one. 
+        # The difference is calculated at each step (30th frame).
+        # spot_crop: Crop of each parking area (with coordinates obtained from the mask) from the current frame in the video.
+        # calc_diff(): Calculates the brightness difference between the previous and current frames of the parking area and saves it in the diffs list.
+        
         print([diffs[j] for j in np.argsort(diffs)][::-1])
         # plt.figure()
         # plt.hist([diffs[j] / np.amax() for j in np.argsort(diffs)][::-1])
@@ -61,13 +63,12 @@ while ret: # loop continues as the video is processed frame by frame
         for spot_indx in arr_:
             spot = spots[spot_indx]
             x1, y1, w, h = spot
-
             spot_crop = frame[y1:y1+h, x1:x1+w, :]
-
             spot_status = empty_or_not(spot_crop)
-
             spots_status[spot_indx] = spot_status
-
+        # arr_: control list that update the parking slots according to difference ratio 
+        # empty_or_not(): checking every parking slot that if it is empty or not and adding to spots_status list
+    
     if frame_nmr % step ==0:
         previous_frame = frame.copy()
 
@@ -79,7 +80,8 @@ while ret: # loop continues as the video is processed frame by frame
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 255, 0), 2)
         else:
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 0, 255), 2)
-
+        # The status of parking spaces (empty/occupied) is marked with green or red rectangles
+        
     cv2.rectangle(frame, (80,20), (550, 80), (0,0,0), -1)
 
     cv2.putText(frame, 'Avaible spots: {} / {}'.format(str(sum(spots_status)), str(len(spots_status))), (100,60),
