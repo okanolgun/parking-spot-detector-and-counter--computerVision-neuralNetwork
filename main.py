@@ -25,7 +25,8 @@ spots = get_parking_spots_bboxes(connected_components)
 
 def calc_diff(im1, im2):
     return np.abs(np.mean(im1) - np.mean(im2))
-
+# this function calculates the average brightness difference between two images 
+# simple and effective method to understand how different two images are.
 
 step = 30
 spots_status = [None for j in spots]
