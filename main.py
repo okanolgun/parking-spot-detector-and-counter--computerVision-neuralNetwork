@@ -22,21 +22,21 @@ connected_components = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
 
 spots = get_parking_spots_bboxes(connected_components)
 # using the method in the util.py class
+# for gettin the coordinates 
 
 def calc_diff(im1, im2):
     return np.abs(np.mean(im1) - np.mean(im2))
 # this function calculates the average brightness difference between two images 
 # simple and effective method to understand how different two images are.
 
-step = 30
-spots_status = [None for j in spots]
-diffs = [None for j in spots]
+step = 30 # operation will be performed every 30th frame of the video
+spots_status = [None for j in spots] # a list that holding the parking spots situations (empty or not)
+diffs = [None for j in spots] # list that keeps the brightness differences 
+previous_frame = None # holding the previous frame for comparison 
 
-previous_frame = None
-
-frame_nmr = 0
+frame_nmr = 0 # frame number
 ret = True
-while ret:
+while ret: # loop continues as the video is processed frame by frame
     ret, frame = cap.read()
 
     if frame_nmr % step == 0 and previous_frame is not None:
