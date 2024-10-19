@@ -80,7 +80,7 @@ while ret: # loop continues as the video is processed frame by frame
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 255, 0), 2)
         else:
             frame = cv2.rectangle(frame, (x1, y1), (x1 + w, y1 + h), (0, 0, 255), 2)
-        # The status of parking spaces (empty/occupied) is marked with green or red rectangles
+        # the status of parking spaces (empty/occupied) is marked with green or red rectangles
         
     cv2.rectangle(frame, (80,20), (550, 80), (0,0,0), -1)
 
@@ -93,6 +93,7 @@ while ret: # loop continues as the video is processed frame by frame
         break
 
     frame_nmr = frame_nmr + 1
-
+    # shows the parking slots in the screen. we can see the empty parking slots' numbers 
+    # we can see the video with openCV, and if the user press the q button, it will stop 
 cap.release()
 cv2.destroyAllWindows()
