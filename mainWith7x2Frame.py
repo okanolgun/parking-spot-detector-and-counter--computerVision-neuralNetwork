@@ -3,14 +3,19 @@ from util import get_parking_spots_bboxes, empty_or_not
 
 mask = './mask_crop.png'
 video_path = './data/parking_crop_loop.mp4' 
-
-mask = cv2.imread(mask, 0)
 # mask.png and video.mp4 is already in our data set and our project directory. 
 
-cap = cv2.VideoCapture(video_path)
+mask = cv2.imread(mask, 0)
 # we read our mask png and turned it to a numpy array
 
+cap = cv2.VideoCapture(video_path)
+# we captured our videp.mp4 and took it to a frame 
+
 connected_components = cv2.connectedComponentsWithStats(mask, 4, cv2.CV_32S)
+# we getting the connected componens with the mask.png 
+# 4 or 8: used for components with 4 or 8 connections. 
+# 4 only considers up, down, left and right neighbors
+# cv_325 is a return type of our data
 
 spots = get_parking_spots_bboxes(connected_components)
 
