@@ -5,6 +5,7 @@ mask = './mask_crop.png'
 video_path = './data/parking_crop_loop.mp4' 
 
 mask = cv2.imread(mask, 0)
+# mask.png and video.mp4 is already in our data set and our project directory. 
 
 cap = cv2.VideoCapture(video_path)
 
