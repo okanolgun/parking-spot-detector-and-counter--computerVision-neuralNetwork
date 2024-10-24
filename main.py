@@ -95,5 +95,7 @@ while ret: # loop continues as the video is processed frame by frame
     frame_nmr = frame_nmr + 1
     # shows the parking slots in the screen. we can see the empty parking slots' numbers 
     # we can see the video with openCV, and if the user press the q button, it will stop 
+
 cap.release()
 cv2.destroyAllWindows()
+
