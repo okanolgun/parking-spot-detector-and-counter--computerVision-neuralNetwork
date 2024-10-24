@@ -98,4 +98,4 @@ while ret: # loop continues as the video is processed frame by frame
 
 cap.release()
 cv2.destroyAllWindows()
-
+# and we released all the parking slots and closed all windows
