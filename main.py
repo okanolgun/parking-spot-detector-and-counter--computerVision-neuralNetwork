@@ -2,6 +2,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from util import get_parking_spots_bboxes, empty_or_not
+# importing the necessary libraries
 
 mask = './mask_1920_1080.png'
 video_path = './data/parking_1920_1080_loop.mp4'
