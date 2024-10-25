@@ -40,7 +40,7 @@ while ret:
 
             spots_status[spot_indx] = spot_status
 
-    for spot_indx, spot in enumerate(spots):
+    for spot_indx, spot in enumerate(spots): 
         spot_status = spots_status[spot_indx]
         x1, y1, w, h = spots[spot_indx]
 
